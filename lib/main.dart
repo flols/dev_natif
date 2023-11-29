@@ -16,7 +16,7 @@ class MainApp extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -39,10 +39,17 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class Ressource extends StatelessWidget {
+class Ressource extends StatefulWidget {
   final int index;
 
-  const Ressource({Key? key, required this.index}) : super(key: key);
+  const Ressource({super.key, required this.index});
+
+  @override
+  State<Ressource> createState() => _RessourceState();
+}
+
+class _RessourceState extends State<Ressource> {
+  int quantity = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -60,19 +67,38 @@ class Ressource extends StatelessWidget {
       'Minerai de charbon',
     ];
 
-    Color color = colors[index];
+    Color color = colors[widget.index];
 
     return Container(
       color: color,
-      child: Center(
-        child: Text(
-          descriptions[index],
-          style: const TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            descriptions[widget.index],
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+            textAlign: TextAlign.center,
           ),
-          textAlign: TextAlign.center,
-        ),
+          const SizedBox(height: 6.0),
+          ElevatedButton(
+            onPressed: () {
+              setState(() {
+                quantity++;
+              });
+            },
+            child: const Text('Miner'),
+          ),
+          const SizedBox(height: 6.0),
+          Text(
+            'Ressources: $quantity',
+            style: const TextStyle(
+              color: Colors.white,
+            ),
+          ),
+        ],
       ),
     );
   }
