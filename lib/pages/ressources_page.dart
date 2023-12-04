@@ -1,46 +1,42 @@
 import 'package:flutter/material.dart';
 
-class Ressource extends StatefulWidget {
-  final int index;
+class Ressource {
+  final String nom;
+  final Color couleur;
+  final String description;
 
-  const Ressource({super.key, required this.index});
-
-  @override
-  State<Ressource> createState() => _RessourceState();
+  Ressource({
+    required this.nom,
+    required this.couleur,
+    required this.description,
+  });
 }
 
-class _RessourceState extends State<Ressource> {
+class RessourceWidget extends StatefulWidget {
+  final Ressource ressource;
+
+  const RessourceWidget({super.key, required this.ressource});
+
+  @override
+  State<RessourceWidget> createState() => _RessourceWidgetState();
+}
+
+class _RessourceWidgetState extends State<RessourceWidget> {
   int quantity = 0;
 
   @override
   Widget build(BuildContext context) {
-    List<Color> colors = [
-      const Color(0xFF967969), // Bois
-      const Color(0xFFCED4DA), // Minerai de fer
-      const Color(0xFFD9480F), // Minerai de cuivre
-      const Color(0xFF000000), // Charbon
-    ];
-
-    List<String> descriptions = [
-      'Bois brut',
-      'Minerai de fer brut',
-      'Minerai de cuivre brut',
-      'Minerai de charbon',
-    ];
-
-    Color color = colors[widget.index];
-
     return Container(
-      margin: const EdgeInsets.all(5.0), 
+      margin: const EdgeInsets.all(5.0),
       decoration: BoxDecoration(
-        color: color,
+        color: widget.ressource.couleur,
         borderRadius: BorderRadius.circular(5.0),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            descriptions[widget.index],
+            widget.ressource.description,
             style: const TextStyle(
               color: Colors.white,
               fontSize: 16.0,
@@ -56,12 +52,19 @@ class _RessourceState extends State<Ressource> {
               });
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color.fromARGB(0, 33, 149, 243),
+              backgroundColor: const Color.fromARGB(255, 255, 255, 255),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(5.0),
               ),
             ),
-            child: const Text('Miner'),
+            child: const Text(
+              'Miner',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 13.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
           const SizedBox(height: 2.0),
           Text(

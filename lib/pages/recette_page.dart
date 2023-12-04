@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../data/data.dart';
 
 class RecettePage extends StatefulWidget {
   const RecettePage({super.key});
@@ -10,149 +11,109 @@ class RecettePage extends StatefulWidget {
 class _RecettePageState extends State<RecettePage> {
   @override
   Widget build(BuildContext context) {
-    List<Recipe> recipes = [
-      Recipe(
-        name: 'Hache',
-        cost: '2 Bois, 2 Ironrod',
-        gameplay: 'Récolter le bois 3 par 3',
-        type: 'Outil',
-        description: 'Un outil utile',
-      ),
-      Recipe(
-        name: 'Pioche',
-        cost: '2 Bois, 3 Ironrod',
-        gameplay: 'Récolter les minerais 5 par 5',
-        type: 'Outil',
-        description: 'Un outil utile',
-      ),
-      Recipe(
-        name: 'Lingot de fer',
-        cost: '1 Minerai de fer',
-        gameplay: 'Débloque d’autres recettes',
-        type: 'Matériau',
-        description: 'Un lingot de fer pur',
-      ),
-      Recipe(
-        name: 'Plaque de fer',
-        cost: '3 Minerai de fer pour 2 plaques de métal',
-        gameplay: 'Débloque d’autres recettes',
-        type: 'Matériau',
-        description: 'Une plaque de fer pour la construction',
-      ),
-      Recipe(
-        name: 'Lingot de cuivre',
-        cost: '1 Minerai de cuivre',
-        gameplay: 'Débloque d’autres recettes',
-        type: 'Matériau',
-        description: 'Un lingot de cuivre pur',
-      ),
-      Recipe(
-        name: 'Tige en métal',
-        cost: '1 Lingot de fer',
-        gameplay: 'Débloque d’autres recettes',
-        type: 'Matériau',
-        description: 'Une tige de métal',
-      ),
-      Recipe(
-        name: 'Fil électrique',
-        cost: '1 Lingot de cuivre',
-        gameplay: 'Débloque d’autres recettes',
-        type: 'Composant',
-        description:
-            'Un fil électrique pour fabriquer des composants électroniques',
-      ),
-      Recipe(
-        name: 'Mineur',
-        cost: '10 Plaque de fer, 5 Fil électrique',
-        gameplay:
-            'Permet de transformer automatiquement d’extraire du minerai de fer ou cuivre',
-        type: 'Bâtiment',
-        description: 'Un bâtiment qui permet d’automatiser le minage',
-      ),
-      Recipe(
-        name: 'Fonderie',
-        cost: '5 Fil électrique, 8 Tige en métal',
-        gameplay:
-            'Permet de transformer automatiquement du minerai de fer ou cuivre en lingot de fer ou cuivre',
-        type: 'Bâtiment',
-        description: 'Un bâtiment qui permet d’automatiser la production',
-      ),
-    ];
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Recettes'),
       ),
-      body: ListView.builder(
-        itemCount: recipes.length,
-        itemBuilder: (BuildContext context, int index) {
-          Recipe recipe = recipes[index];
-          return ListTile(
-            title: Text(
-              recipe.name,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
+      body: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(16),
+            child: const Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Recettes",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
               ),
             ),
-            subtitle: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Coût: ${recipe.cost}',
-                  style: TextStyle(
-                    fontSize: 14,
-                  ),
-                ),
-                Text(
-                  'Type: ${recipe.type}',
-                  style: TextStyle(
-                    fontSize: 14,
-                  ),
-                ),
-                Text(
-                  'Description: ${recipe.description}',
-                  style: TextStyle(
-                    fontSize: 14,
-                  ),
-                ),
-              ],
-            ),
-            trailing: ElevatedButton(
-              onPressed: () {
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: recettes.length,
+              itemBuilder: (BuildContext context, int index) {
+                return RecetteWidget(recette: recettes[index]);
               },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue, 
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5.0), 
-                ),
-              ),
-              child: const Text(
-                'Produire',
-                style: TextStyle(
-                  fontSize: 14,
-                ),
-              ),
             ),
-          );
-        },
+          ),
+        ],
       ),
     );
   }
 }
 
-class Recipe {
-  final String name;
-  final String cost;
-  final String gameplay;
-  final String type;
-  final String description;
+class RecetteWidget extends StatelessWidget {
+  final Recette recette;
 
-  Recipe({
-    required this.name,
-    required this.cost,
-    required this.gameplay,
-    required this.type,
-    required this.description,
-  });
+  const RecetteWidget({super.key, required this.recette});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: const EdgeInsets.all(8),
+      child: ListTile(
+        title: Text(
+          recette.nom,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(recette.description),
+            Text('Gameplay: ${recette.gameplay}'),
+            Text(
+              'Coût:',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
+            ),
+            RessourceCostWidget(cout: recette.cout),
+          ],
+        ),
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const SizedBox(width: 16),
+            ElevatedButton(
+              onPressed: () {
+                produireObjet(recette.nom);
+              },
+              child: const Text('Produire'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void produireObjet(String nomObjet) {
+    print('Objet produit : $nomObjet');
+    // TODO: implémenter la production d'objet
+  }
+}
+
+class RessourceCostWidget extends StatelessWidget {
+  final List<RessourceQuantite> cout;
+
+  const RessourceCostWidget({super.key, required this.cout});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: cout
+          .map(
+            (ressource) => Text('${ressource.quantite} ${ressource.nom}, '),
+          )
+          .toList(),
+    );
+  }
 }
