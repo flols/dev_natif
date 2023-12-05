@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 class InventairePage extends StatelessWidget {
-  const InventairePage({super.key});
-  
+  final List<String> itemsProduits;
+
+  const InventairePage({super.key, required this.itemsProduits});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,6 +28,20 @@ class InventairePage extends StatelessWidget {
                   ),
                 ],
               ),
+            ),
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: itemsProduits.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Card(
+                  margin: const EdgeInsets.all(8),
+                  child: ListTile(
+                    title: Text(itemsProduits[index]),
+                    trailing: const Text("Quantité:"),
+                  ),
+                );
+              },
             ),
           ),
         ],

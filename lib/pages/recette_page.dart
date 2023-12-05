@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../data/data.dart';
+import 'inventaire_page.dart';
 
 class RecettePage extends StatefulWidget {
   const RecettePage({super.key});
@@ -11,6 +12,7 @@ class RecettePage extends StatefulWidget {
 class _RecettePageState extends State<RecettePage> {
   @override
   Widget build(BuildContext context) {
+    List<String> itemsProduits = [];
     return Scaffold(
       appBar: AppBar(
         title: const Text('Recettes'),
@@ -38,7 +40,10 @@ class _RecettePageState extends State<RecettePage> {
             child: ListView.builder(
               itemCount: recettes.length,
               itemBuilder: (BuildContext context, int index) {
-                return RecetteWidget(recette: recettes[index]);
+                return RecetteWidget(
+                  recette: recettes[index],
+                  itemsProduits: itemsProduits,
+                );
               },
             ),
           ),
@@ -48,18 +53,24 @@ class _RecettePageState extends State<RecettePage> {
   }
 }
 
-class RecetteWidget extends StatelessWidget {
+class RecetteWidget extends StatefulWidget {
   final Recette recette;
+  final List<String> itemsProduits;
 
-  const RecetteWidget({super.key, required this.recette});
+  const RecetteWidget({super.key, required this.recette, required this.itemsProduits});
 
+  @override
+  State<RecetteWidget> createState() => _RecetteWidgetState();
+}
+
+class _RecetteWidgetState extends State<RecetteWidget> {
   @override
   Widget build(BuildContext context) {
     return Card(
       margin: const EdgeInsets.all(8),
       child: ListTile(
         title: Text(
-          recette.nom,
+          widget.recette.nom,
           style: const TextStyle(
             fontWeight: FontWeight.bold,
           ),
@@ -67,8 +78,8 @@ class RecetteWidget extends StatelessWidget {
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(recette.description),
-            Text('Gameplay: ${recette.gameplay}'),
+            Text(widget.recette.description),
+            Text('Gameplay: ${widget.recette.gameplay}'),
             Text(
               'Coût:',
               style: TextStyle(
@@ -76,7 +87,7 @@ class RecetteWidget extends StatelessWidget {
                 color: Colors.black,
               ),
             ),
-            RessourceCostWidget(cout: recette.cout),
+            RessourceCostWidget(cout: widget.recette.cout),
           ],
         ),
         trailing: Row(
@@ -85,7 +96,7 @@ class RecetteWidget extends StatelessWidget {
             const SizedBox(width: 16),
             ElevatedButton(
               onPressed: () {
-                produireObjet(recette.nom);
+                produireObjet(context, widget.recette);
               },
               child: const Text('Produire'),
             ),
@@ -95,9 +106,19 @@ class RecetteWidget extends StatelessWidget {
     );
   }
 
-  void produireObjet(String nomObjet) {
-    print('Objet produit : $nomObjet');
-    // TODO: implémenter la production d'objet
+  void produireObjet(BuildContext context, Recette recette) {
+    print('Objet produit : ${recette.nom}');
+    setState(() {
+      widget.itemsProduits.add(recette.nom);
+    });
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) =>
+            InventairePage(itemsProduits: widget.itemsProduits),
+      ),
+    );
   }
 }
 

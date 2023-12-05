@@ -41,7 +41,10 @@ class HomePage extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const InventairePage()),
+                MaterialPageRoute(
+                    builder: (context) => const InventairePage(
+                          itemsProduits: [],
+                        )),
               );
             },
             icon: const Icon(Icons.backpack),
