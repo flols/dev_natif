@@ -116,9 +116,16 @@ class _RecetteWidgetState extends State<RecetteWidget> {
           children: [
             const SizedBox(width: 16),
             ElevatedButton(
-              onPressed: () {
-                widget.onProduireObjet(widget.recette);
-              },
+              onPressed: widget.recette.areResourcesAvailable(ressources)
+                  ? () {
+                      widget.onProduireObjet(widget.recette);
+                    }
+                  : null,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: widget.recette.areResourcesAvailable(ressources)
+                    ? Colors.blue // color enable
+                    : Colors.grey, // color disable
+              ),
               child: const Text('Produire'),
             ),
           ],

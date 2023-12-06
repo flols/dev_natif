@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import '../models/ressource.dart';
 
 class Recette {
@@ -16,4 +17,23 @@ class Recette {
   });
 
   get quantiteProduite => null;
+
+  bool areResourcesAvailable(List<Ressource> ressources) {
+    for (var ressourceQuantite in cout) {
+      var ressource = ressources.firstWhere(
+        (r) => r.nom == ressourceQuantite.nom,
+        orElse: () => Ressource(
+          nom: '',
+          couleur: Colors.transparent,
+          description: '',
+          quantite: 0,
+        ),
+      );
+
+      if (ressource.quantite < ressourceQuantite.quantite) {
+        return false;
+      }
+    }
+    return true;
+  }
 }
