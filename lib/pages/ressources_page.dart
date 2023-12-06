@@ -23,6 +23,7 @@ class _RessourceWidgetState extends State<RessourceWidget> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          // Affichage de la description de la ressource
           Text(
             widget.ressource.description,
             style: const TextStyle(
@@ -33,8 +34,10 @@ class _RessourceWidgetState extends State<RessourceWidget> {
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 2.0),
+          // Bouton pour "miner" la ressource
           ElevatedButton(
             onPressed: () {
+              // Mise à jour de la quantité de la ressource lors du "minage"
               setState(() {
                 widget.ressource.quantite++;
               });
@@ -55,6 +58,7 @@ class _RessourceWidgetState extends State<RessourceWidget> {
             ),
           ),
           const SizedBox(height: 2.0),
+          // Affichage de la quantité actuelle de la ressource
           Text(
             'Ressources: ${widget.ressource.quantite}',
             style: const TextStyle(

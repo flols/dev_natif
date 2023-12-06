@@ -47,9 +47,11 @@ class _RecettePageState extends State<RecettePage> {
                   recette: recettes[index],
                   itemsProduits: itemsProduits,
                   onProduireObjet: (recette) {
+                    // Mise à jour des produits lors de la production
                     setState(() {
                       itemsProduits.add(recette.nom);
                     });
+                    // Navigation vers la page d'inventaire avec les produits
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -99,6 +101,7 @@ class _RecetteWidgetState extends State<RecetteWidget> {
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Description de la recette
             Text(widget.recette.description),
             Text('Gameplay: ${widget.recette.gameplay}'),
             const Text(
@@ -108,6 +111,7 @@ class _RecetteWidgetState extends State<RecetteWidget> {
                 color: Colors.black,
               ),
             ),
+            // Coût de la recette en ressources
             RessourceCostWidget(cout: widget.recette.cout),
           ],
         ),
@@ -115,6 +119,7 @@ class _RecetteWidgetState extends State<RecetteWidget> {
           mainAxisSize: MainAxisSize.min,
           children: [
             const SizedBox(width: 16),
+            // Bouton "Produire" avec gestion de l'activation/désactivation
             ElevatedButton(
               onPressed: widget.recette.areResourcesAvailable(ressources)
                   ? () {
@@ -123,8 +128,8 @@ class _RecetteWidgetState extends State<RecetteWidget> {
                   : null,
               style: ElevatedButton.styleFrom(
                 backgroundColor: widget.recette.areResourcesAvailable(ressources)
-                    ? Colors.blue // color enable
-                    : Colors.grey, // color disable
+                    ? Colors.blue // Ressource disponible
+                    : Colors.grey, // Ressource indisponible
               ),
               child: const Text('Produire'),
             ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../models/ressource.dart';
 import '../models/recette.dart';
 
+// Liste des ressources disponibles
 List<Ressource> ressources = [
   Ressource(
       nom: 'Bois',
@@ -29,6 +30,7 @@ List<Ressource> ressources = [
       ),
 ];
 
+// Liste des recettes disponibles
 List<Recette> recettes = [
   Recette(
     nom: 'Hache',

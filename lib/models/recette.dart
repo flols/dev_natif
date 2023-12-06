@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/ressource.dart';
 
+// Classe ressource
 class Recette {
   final String nom;
   final List<RessourceQuantite> cout;
@@ -8,6 +9,7 @@ class Recette {
   final String type;
   final String description;
 
+  // Constructeur
   Recette({
     required this.nom,
     required this.cout,
@@ -16,8 +18,7 @@ class Recette {
     required this.description,
   });
 
-  get quantiteProduite => null;
-
+  // Vérifie si les ressources sont disponibles
   bool areResourcesAvailable(List<Ressource> ressources) {
     for (var ressourceQuantite in cout) {
       var ressource = ressources.firstWhere(
@@ -30,10 +31,11 @@ class Recette {
         ),
       );
 
+      // Si la ressource n'existe pas ou si la quantité est insuffisante
       if (ressource.quantite < ressourceQuantite.quantite) {
         return false;
       }
     }
-    return true;
+    return true; // Ressources disponibles
   }
 }
