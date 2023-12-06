@@ -1,27 +1,25 @@
-class Recette {
-  final String nom;
-  final List<RessourceQuantite> cout;
-  final String gameplay;
-  final String type;
-  final String description;
+import 'package:flutter/material.dart';
+import '../models/ressource.dart';
+import '../models/recette.dart';
 
-  Recette({
-    required this.nom,
-    required this.cout,
-    required this.gameplay,
-    required this.type,
-    required this.description,
-  });
-
-  get quantiteProduite => null;
-}
-
-class RessourceQuantite {
-  final String nom;
-  final int quantite;
-
-  RessourceQuantite({required this.nom, required this.quantite});
-}
+List<Ressource> ressources = [
+  Ressource(
+      nom: 'Bois',
+      couleur: const Color(0xFF967969),
+      description: 'Bois brut'),
+  Ressource(
+      nom: 'Minerai de fer',
+      couleur: const Color(0xFFCED4DA),
+      description: 'Minerai de fer brut'),
+  Ressource(
+      nom: 'Minerai de cuivre',
+      couleur: const Color(0xFFD9480F),
+      description: 'Minerai de cuivre brut'),
+  Ressource(
+      nom: 'Charbon',
+      couleur: const Color(0xFF000000),
+      description: 'Minerai de charbon'),
+];
 
 List<Recette> recettes = [
   Recette(
@@ -112,3 +110,4 @@ List<Recette> recettes = [
     description: 'Un bâtiment qui permet d’automatiser la production',
   ),
 ];
+

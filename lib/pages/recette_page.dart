@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../data/data.dart';
-import 'inventaire_page.dart';
+import '../pages/inventaire_page.dart';
+import '../models/recette.dart';
+import '../models/ressource.dart';
 
 class RecettePage extends StatefulWidget {
   const RecettePage({super.key});
@@ -10,9 +12,10 @@ class RecettePage extends StatefulWidget {
 }
 
 class _RecettePageState extends State<RecettePage> {
+  List<String> itemsProduits = [];
+
   @override
   Widget build(BuildContext context) {
-    List<String> itemsProduits = [];
     return Scaffold(
       appBar: AppBar(
         title: const Text('Recettes'),
@@ -43,6 +46,18 @@ class _RecettePageState extends State<RecettePage> {
                 return RecetteWidget(
                   recette: recettes[index],
                   itemsProduits: itemsProduits,
+                  onProduireObjet: (recette) {
+                    setState(() {
+                      itemsProduits.add(recette.nom);
+                    });
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            InventairePage(itemsProduits: itemsProduits),
+                      ),
+                    );
+                  },
                 );
               },
             ),
@@ -56,8 +71,14 @@ class _RecettePageState extends State<RecettePage> {
 class RecetteWidget extends StatefulWidget {
   final Recette recette;
   final List<String> itemsProduits;
+  final Function(Recette) onProduireObjet;
 
-  const RecetteWidget({super.key, required this.recette, required this.itemsProduits});
+  const RecetteWidget({
+    super.key,
+    required this.recette,
+    required this.itemsProduits,
+    required this.onProduireObjet,
+  });
 
   @override
   State<RecetteWidget> createState() => _RecetteWidgetState();
@@ -96,27 +117,12 @@ class _RecetteWidgetState extends State<RecetteWidget> {
             const SizedBox(width: 16),
             ElevatedButton(
               onPressed: () {
-                produireObjet(context, widget.recette);
+                widget.onProduireObjet(widget.recette);
               },
               child: const Text('Produire'),
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  void produireObjet(BuildContext context, Recette recette) {
-    print('Objet produit : ${recette.nom}');
-    setState(() {
-      widget.itemsProduits.add(recette.nom);
-    });
-
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) =>
-            InventairePage(itemsProduits: widget.itemsProduits),
       ),
     );
   }

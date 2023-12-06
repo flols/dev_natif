@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'data/data.dart';
 import 'pages/recette_page.dart';
 import 'pages/inventaire_page.dart';
 import 'pages/ressources_page.dart';
@@ -65,22 +66,3 @@ class HomePage extends StatelessWidget {
     );
   }
 }
-
-List<Ressource> ressources = [
-  Ressource(
-      nom: 'Bois',
-      couleur: const Color(0xFF967969),
-      description: 'Bois brut'),
-  Ressource(
-      nom: 'Minerai de fer',
-      couleur: const Color(0xFFCED4DA),
-      description: 'Minerai de fer brut'),
-  Ressource(
-      nom: 'Minerai de cuivre',
-      couleur: const Color(0xFFD9480F),
-      description: 'Minerai de cuivre brut'),
-  Ressource(
-      nom: 'Charbon',
-      couleur: const Color(0xFF000000),
-      description: 'Minerai de charbon'),
-];

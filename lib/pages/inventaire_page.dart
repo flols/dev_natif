@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 class InventairePage extends StatelessWidget {
   final List<String> itemsProduits;
 
