@@ -101,7 +101,7 @@ class _RecetteWidgetState extends State<RecetteWidget> {
           children: [
             Text(widget.recette.description),
             Text('Gameplay: ${widget.recette.gameplay}'),
-            Text(
+            const Text(
               'Coût:',
               style: TextStyle(
                 fontWeight: FontWeight.bold,

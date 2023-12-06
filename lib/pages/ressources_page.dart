@@ -11,7 +11,6 @@ class RessourceWidget extends StatefulWidget {
 }
 
 class _RessourceWidgetState extends State<RessourceWidget> {
-  int quantity = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +36,7 @@ class _RessourceWidgetState extends State<RessourceWidget> {
           ElevatedButton(
             onPressed: () {
               setState(() {
-                quantity++;
+                widget.ressource.quantite++;
               });
             },
             style: ElevatedButton.styleFrom(
@@ -57,7 +56,7 @@ class _RessourceWidgetState extends State<RessourceWidget> {
           ),
           const SizedBox(height: 2.0),
           Text(
-            'Ressources: $quantity',
+            'Ressources: ${widget.ressource.quantite}',
             style: const TextStyle(
               color: Colors.white,
               fontSize: 13.0,

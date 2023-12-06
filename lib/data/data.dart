@@ -6,19 +6,27 @@ List<Ressource> ressources = [
   Ressource(
       nom: 'Bois',
       couleur: const Color(0xFF967969),
-      description: 'Bois brut'),
+      description: 'Bois brut',
+      quantite: 0,
+      ),
   Ressource(
       nom: 'Minerai de fer',
       couleur: const Color(0xFFCED4DA),
-      description: 'Minerai de fer brut'),
+      description: 'Minerai de fer brut',
+      quantite: 0,
+      ),
   Ressource(
       nom: 'Minerai de cuivre',
       couleur: const Color(0xFFD9480F),
-      description: 'Minerai de cuivre brut'),
+      description: 'Minerai de cuivre brut',
+      quantite: 0,
+      ),
   Ressource(
       nom: 'Charbon',
       couleur: const Color(0xFF000000),
-      description: 'Minerai de charbon'),
+      description: 'Minerai de charbon',
+      quantite: 0,
+      ),
 ];
 
 List<Recette> recettes = [

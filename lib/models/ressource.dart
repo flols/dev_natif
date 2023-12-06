@@ -4,11 +4,13 @@ class Ressource {
   final String nom;
   final Color couleur;
   final String description;
+  int quantite;
 
   Ressource({
     required this.nom,
     required this.couleur,
     required this.description,
+    required this.quantite,
   });
 }
 
